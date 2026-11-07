@@ -37,19 +37,39 @@ jobs:
           cat files.txt
           echo "count=$(wc -l < files.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
 
+      # jsDelivr only allows one purge per file about every hour. When a file
+      # is throttled, wait until the limit resets and purge it again.
       - name: Purge
         if: steps.files.outputs.count != '0'
+        timeout-minutes: 75
         env:
           REPO: ${{ github.repository }}
         run: |
-          failed=0
+          purge() {   # prints: ok | throttled <seconds> | error
+            curl -fsS "https://purge.jsdelivr.net/gh/${REPO}@main/$1" | jq -r '
+              if .status != "finished" then "error"
+              elif ([.paths[] | select(.throttled)] | length) > 0
+                then "throttled \([.paths[].throttlingReset // 0] | max)"
+              else "ok" end' 2>/dev/null || echo error
+          }
+          retry=()
           while IFS= read -r f; do
-            url="https://purge.jsdelivr.net/gh/${REPO}@main/${f}"
-            ok=0
-            for attempt in 1 2 3; do
-              if curl -fsS "$url" | grep -q '"status": *"finished"'; then ok=1; break; fi
-              sleep 10
-            done
-            if [ "$ok" = 1 ]; then echo "purged  $f"; else echo "::warning::could not purge $f"; failed=1; fi
+            r=$(purge "$f")
+            case "$r" in
+              ok) echo "purged     $f" ;;
+              throttled*) echo "throttled  $f (resets in ${r#throttled }s)"; retry+=("$f ${r#throttled }") ;;
+              *) sleep 10; r=$(purge "$f"); [ "$r" = ok ] && echo "purged     $f" || { echo "::warning::could not purge $f"; retry+=("$f 60"); } ;;
+            esac
           done < files.txt
+
+          [ ${#retry[@]} -eq 0 ] && exit 0
+          wait=$(printf '%s\n' "${retry[@]}" | awk '{print $2}' | sort -n | tail -1)
+          wait=$(( wait + 30 )); [ $wait -gt 4200 ] && wait=4200
+          echo "Waiting ${wait}s for jsDelivr's purge limit to reset..."
+          sleep "$wait"
+          failed=0
+          for item in "${retry[@]}"; do
+            f=${item% *}
+            if [ "$(purge "$f")" = ok ]; then echo "purged     $f"; else echo "::warning::still could not purge $f"; failed=1; fi
+          done
           exit $failed
