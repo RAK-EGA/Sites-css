@@ -3,35 +3,44 @@
 Custom CSS for our websites, tracked in Git instead of the WordPress Customizer.
 
 ```
-all-sites/main-en.css    shared by every English site (load first)
-Courts/court-en.css      English site-only rules (load second)
-DED/ded-en.css
-Heritage/her-en.css
-MUN/mun-en.css
-RAKGOV/rak-en.css
-PSD/psd-en.css           (empty for now)
+all-sites/main-en.css    shared by every English site
+all-sites/main-ar.css    shared by every Arabic site (RTL)
 
-*/…-ar.css               Arabic Customizer CSS, not split yet
+<Site>/<site>-en.css     English site-only rules
+<Site>/<site>-ar.css     Arabic site-only rules
+
+Sites: Courts/court, DED/ded, Heritage/her, MUN/mun, RAKGOV/rak
+PSD/psd-en.css is empty for now.
 ```
 
 ## What goes where
 
-- **`all-sites/main-en.css`**: every rule that is the same on all English sites,
+- **`all-sites/main-en.css`** / **`main-ar.css`**: every rule that is the same on all sites of that language,
   plus any rule that was on only some sites but had the same value wherever it appeared.
 - **Site file**: design tokens and rules whose values differ between sites,
   page-ID rules, and rules a site turned off on purpose.
 
 ## Adding to a site
 
-Put both links in the site's header, **shared first, then the site's own file**:
+Each site loads two files in its header: **the shared file for its language first,
+then its own file for the same language.**
+
+English site (example: RAK):
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/all-sites/main-en.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/rak-en.css">
 ```
 
-Site files: `Courts/court-en.css`, `DED/ded-en.css`, `Heritage/her-en.css`,
-`MUN/mun-en.css`, `RAKGOV/rak-en.css`. Paths are case-sensitive.
+Arabic site (example: RAK):
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/all-sites/main-ar.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/rak-ar.css">
+```
+
+Swap `RAKGOV/rak` for `Courts/court`, `DED/ded`, `Heritage/her` or `MUN/mun`.
+Paths are case-sensitive.
 
 ## After pushing a change
 

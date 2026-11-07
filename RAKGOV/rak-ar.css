@@ -1,0 +1,50 @@
+/* ##########################################################################
+   RAK — Arabic (RTL), site-only styles
+   https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/rak-ar.css
+
+   Load AFTER all-sites/main-ar.css. Only what differs from the other
+   Arabic sites lives here; everything shared is in main-ar.css.
+
+   A1  Design tokens that differ per site
+   A2  Page-specific rules (by page ID)
+   A3  Site rules
+   ########################################################################## */
+
+
+/* ==========================================================================
+   A1. DESIGN TOKENS (values that differ per site)
+   ========================================================================== */
+
+:root {
+    --external-link-icon: url("https://stg-courts-staging.kinsta.cloud/wp-content/uploads/2026/10/Open-link.svg");
+    --featured-image-gap: 16px;            /* space above featured images (mobile) */
+    --featured-image-gap-desktop: 32px;    /* ... and from 768px */
+}
+
+
+/* ==========================================================================
+   A2. PAGE-SPECIFIC RULES (by page ID)
+   ========================================================================== */
+
+/* None on this site. */
+
+
+/* ==========================================================================
+   A3. SITE RULES
+   ========================================================================== */
+
+/* Service cards: centre the title row and add space above titles
+   (kept per site: Heritage and Municipality turned this off on purpose,
+   and the Courts Arabic customizer does not have it) */
+html .content-block__service-top {
+    align-items: center !important;
+}
+
+html .content-block__service-title {
+    padding-top: clamp(12px, 2.5vw, 18px) !important;
+}
+
+/* Single post title width (differs per site) */
+html h1.single-post-title {
+    max-width: unset !important;
+}

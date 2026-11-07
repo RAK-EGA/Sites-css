@@ -1,0 +1,73 @@
+/* ##########################################################################
+   MUNICIPALITY — Arabic (RTL), site-only styles
+   https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/MUN/mun-ar.css
+
+   Load AFTER all-sites/main-ar.css. Only what differs from the other
+   Arabic sites lives here; everything shared is in main-ar.css.
+
+   A1  Design tokens that differ per site
+   A2  Page-specific rules (by page ID)
+   A3  Site rules
+   ########################################################################## */
+
+
+/* ==========================================================================
+   A1. DESIGN TOKENS (values that differ per site)
+   ========================================================================== */
+
+:root {
+    --external-link-icon: url("https://stg-courts-staging.kinsta.cloud/wp-content/uploads/2026/10/Open-link.svg");
+    --featured-image-gap: 0;               /* space above featured images (mobile) */
+    --featured-image-gap-desktop: 0;       /* ... and from 768px */
+}
+
+
+/* ==========================================================================
+   A2. PAGE-SPECIFIC RULES (by page ID)
+   ========================================================================== */
+
+/* Services listing (page 92): compact pagination on mobile */
+@media (max-width: 767px) {
+    /* Hide all numbered pages by default */
+    .page-id-92 .services-listing__page-numbers > .services-listing__page-btn {
+        display: none;
+    }
+
+    /* Always show first, last and current */
+    .page-id-92 .services-listing__page-numbers > .services-listing__page-btn:first-child,
+    .page-id-92 .services-listing__page-numbers > .services-listing__page-btn:last-child,
+    .page-id-92 .services-listing__page-numbers > .services-listing__page-btn.is-active {
+        display: inline-flex;
+    }
+
+    /* Compact spacing */
+    .page-id-92 .services-listing__pagination,
+    .page-id-92 .services-listing__page-numbers {
+        gap: 6px;
+    }
+}
+
+/* Page 3 active: show pages 1–3 */
+.page-id-92 .services-listing__page-numbers:has(> .services-listing__page-btn:nth-of-type(3).is-active) > .services-listing__page-btn:nth-of-type(-n+3) {
+    display: inline-flex;
+}
+
+
+/* ==========================================================================
+   A3. SITE RULES
+   ========================================================================== */
+
+/* Header logo size */
+html .header-logo > img {
+    height: 44px !important;
+}
+
+/* Single post title width (differs per site) */
+html h1.single-post-title {
+    max-width: 70% !important;
+}
+
+/* Single posts: last paragraph has no bottom padding (differs per site) */
+html .single-post-content > .wp-block-paragraph:last-child {
+    padding-bottom: 0 !important;
+}

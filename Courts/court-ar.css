@@ -1,0 +1,50 @@
+/* ##########################################################################
+   COURTS — Arabic (RTL), site-only styles
+   https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/Courts/court-ar.css
+
+   Load AFTER all-sites/main-ar.css. Only what differs from the other
+   Arabic sites lives here; everything shared is in main-ar.css.
+
+   A1  Design tokens that differ per site
+   A2  Page-specific rules (by page ID)
+   A3  Site rules
+   ########################################################################## */
+
+
+/* ==========================================================================
+   A1. DESIGN TOKENS (values that differ per site)
+   ========================================================================== */
+
+:root {
+    --external-link-icon: url("https://stg-courts-staging.kinsta.cloud/wp-content/uploads/2026/10/Open-link.svg");
+    --featured-image-gap: 16px;            /* space above featured images (mobile) */
+    --featured-image-gap-desktop: 32px;    /* ... and from 768px */
+}
+
+
+/* ==========================================================================
+   A2. PAGE-SPECIFIC RULES (by page ID)
+   ========================================================================== */
+
+/* Pages whose split-grid blocks have no gap.
+   Tip: add the .split-no-gap class to those blocks and delete this rule. */
+body:is(
+    .page-id-76,
+    .page-id-78,
+    .page-id-427,
+    .page-id-428,
+    .page-id-429,
+    .page-id-430,
+    .page-id-431,
+    .page-id-432,
+    .page-id-433
+) .content-block--split-grid .split-layout__content {
+    gap: 0 !important;
+}
+
+
+/* ==========================================================================
+   A3. SITE RULES
+   ========================================================================== */
+
+/* None on this site. */
