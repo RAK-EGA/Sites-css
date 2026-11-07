@@ -940,11 +940,6 @@ section:not(.sitemap-section) + .sitemap-section {
    "html " in front of a selector keeps the strength these rules had.
    ========================================================================== */
 
-/* Header logo size (was: Municipality) */
-html .header-logo > img {
-    height: 44px !important;
-}
-
 /* GWP layout fixes: titles full width, no extra padding around components
    (was: Heritage, Municipality, RAK) */
 html .section-heading__right,

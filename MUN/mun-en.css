@@ -69,6 +69,11 @@
    A3. SITE RULES
    ========================================================================== */
 
+/* Header logo size */
+html .header-logo > img {
+    height: 44px !important;
+}
+
 /* Single post title width (differs per site) */
 html h1.single-post-title {
     max-width: 70% !important;
