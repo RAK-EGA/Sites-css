@@ -1,7 +1,18 @@
 name: Purge jsDelivr cache
 
-# After every push to main, ask jsDelivr to drop its cached copy of the
-# CSS files that changed, so the websites get the new version right away.
+# After every push to main, make jsDelivr serve the new version of the CSS
+# files that changed.
+#
+# Two jsDelivr limits shape this workflow:
+#  1. Right after a push, jsDelivr can still see the previous commit. A purge
+#     at that moment re-caches the OLD file. So we wait first, and afterwards
+#     check that the live file really matches this commit.
+#  2. Each file can only be purged about once an hour ("throttled"). If a
+#     purge is throttled or did not take, we wait for the limit to reset and
+#     purge again.
+#
+# A run can therefore take up to ~70 minutes. That is normal: please don't
+# cancel it. Runs are queued, never cancelled, so every push gets purged.
 
 on:
   push:
@@ -11,9 +22,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: purge-jsdelivr
+  cancel-in-progress: false
+
 jobs:
   purge:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
         with:
@@ -37,39 +53,63 @@ jobs:
           cat files.txt
           echo "count=$(wc -l < files.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
 
-      # jsDelivr only allows one purge per file about every hour. When a file
-      # is throttled, wait until the limit resets and purge it again.
-      - name: Purge
+      - name: Purge and verify
         if: steps.files.outputs.count != '0'
-        timeout-minutes: 75
         env:
           REPO: ${{ github.repository }}
         run: |
+          CDN="https://cdn.jsdelivr.net/gh/${REPO}@main"
+          PURGE="https://purge.jsdelivr.net/gh/${REPO}@main"
+
           purge() {   # prints: ok | throttled <seconds> | error
-            curl -fsS "https://purge.jsdelivr.net/gh/${REPO}@main/$1" | jq -r '
+            curl -fsS "$PURGE/$1" | jq -r '
               if .status != "finished" then "error"
               elif ([.paths[] | select(.throttled)] | length) > 0
                 then "throttled \([.paths[].throttlingReset // 0] | max)"
               else "ok" end' 2>/dev/null || echo error
           }
-          retry=()
+          is_live() {  # live file equals the newest version on main
+            want=$(git show "origin/main:$1" | sha1sum)
+            for i in 1 2 3 4 5 6; do
+              [ "$(curl -fsS "$CDN/$1" | sha1sum)" = "$want" ] && return 0
+              sleep 10
+            done
+            return 1
+          }
+          reset_in() {  # seconds until this file can be purged again
+            r=$(purge "$1"); case "$r" in throttled*) echo "${r#throttled }" ;; *) echo 0 ;; esac
+          }
+
+          echo "Waiting 2 minutes so jsDelivr sees the new commit..."
+          sleep 120
+          git fetch -q origin main
+
+          pending=()
           while IFS= read -r f; do
             r=$(purge "$f")
-            case "$r" in
-              ok) echo "purged     $f" ;;
-              throttled*) echo "throttled  $f (resets in ${r#throttled }s)"; retry+=("$f ${r#throttled }") ;;
-              *) sleep 10; r=$(purge "$f"); [ "$r" = ok ] && echo "purged     $f" || { echo "::warning::could not purge $f"; retry+=("$f 60"); } ;;
-            esac
+            if [ "$r" = ok ] && is_live "$f"; then
+              echo "live       $f"
+            else
+              echo "not yet    $f ($r)"
+              pending+=("$f")
+            fi
           done < files.txt
+          [ ${#pending[@]} -eq 0 ] && exit 0
 
-          [ ${#retry[@]} -eq 0 ] && exit 0
-          wait=$(printf '%s\n' "${retry[@]}" | awk '{print $2}' | sort -n | tail -1)
+          wait=0
+          for f in "${pending[@]}"; do s=$(reset_in "$f"); [ "$s" -gt "$wait" ] && wait=$s; done
           wait=$(( wait + 30 )); [ $wait -gt 4200 ] && wait=4200
           echo "Waiting ${wait}s for jsDelivr's purge limit to reset..."
           sleep "$wait"
+          git fetch -q origin main
+
           failed=0
-          for item in "${retry[@]}"; do
-            f=${item% *}
-            if [ "$(purge "$f")" = ok ]; then echo "purged     $f"; else echo "::warning::still could not purge $f"; failed=1; fi
+          for f in "${pending[@]}"; do
+            if [ "$(purge "$f")" = ok ] && is_live "$f"; then
+              echo "live       $f"
+            else
+              echo "::warning::$f is still not live; run this workflow again in an hour"
+              failed=1
+            fi
           done
           exit $failed
