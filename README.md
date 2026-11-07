@@ -1,4 +1,4 @@
-# site-styles
+# Sites-css
 
 Custom CSS for our websites, tracked in Git instead of the WordPress Customizer.
 
@@ -16,8 +16,8 @@ PSD/style.css
 Put both links in the site's header, **shared first, then the site's own file**:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/GITHUB-USER/site-styles@main/all-sites/main.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/GITHUB-USER/site-styles@main/RAKGOV/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/all-sites/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/style.css">
 ```
 
 Swap `RAKGOV` for the site's folder. Folder names are case-sensitive in the URL.
