@@ -1,0 +1,55 @@
+name: Purge jsDelivr cache
+
+# After every push to main, ask jsDelivr to drop its cached copy of the
+# CSS files that changed, so the websites get the new version right away.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # "Run workflow" button: purges every CSS file
+
+permissions:
+  contents: read
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Work out which files to purge
+        id: files
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" != "push" ] || [ -z "$BEFORE" ] \
+             || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+             || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            echo "Purging every CSS file"
+            git ls-files '*.css' > files.txt
+          else
+            git diff --name-only --diff-filter=AMR "$BEFORE" "$AFTER" -- '*.css' > files.txt
+          fi
+          cat files.txt
+          echo "count=$(wc -l < files.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
+
+      - name: Purge
+        if: steps.files.outputs.count != '0'
+        env:
+          REPO: ${{ github.repository }}
+        run: |
+          failed=0
+          while IFS= read -r f; do
+            url="https://purge.jsdelivr.net/gh/${REPO}@main/${f}"
+            ok=0
+            for attempt in 1 2 3; do
+              if curl -fsS "$url" | grep -q '"status": *"finished"'; then ok=1; break; fi
+              sleep 10
+            done
+            if [ "$ok" = 1 ]; then echo "purged  $f"; else echo "::warning::could not purge $f"; failed=1; fi
+          done < files.txt
+          exit $failed
