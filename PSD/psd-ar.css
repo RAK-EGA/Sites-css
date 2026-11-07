@@ -6,8 +6,7 @@
    sites lives here; everything shared is in main-ar.css.
 
    Same rules as psd-en.css. The Arabic label, RTL direction and mirrored
-   icon come from main-ar.css. The services tooltip text below is still
-   English: change --tooltip-text if the Arabic site needs its own text.
+   icon come from main-ar.css. The services tooltip text is in Arabic.
 
    A1  Design tokens that differ per site
    A2  Page-specific rules (by page ID)
@@ -131,7 +130,7 @@ html .services-listing__item:is(
     [href$="/trade-licence-noc/"],
     [href$="/another-online-service/"]
 ) {
-    --tooltip-text: "Apply for this service online.";
+    --tooltip-text: "قدّم طلبك لهذه الخدمة إلكترونياً.";
     --tooltip-bg: #172b26;
 
     position: relative;
