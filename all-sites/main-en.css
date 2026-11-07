@@ -1,39 +1,20 @@
 /* ##########################################################################
-   GENERAL SITE STYLES
-   Reusable Additional CSS for the content-block / WordPress theme.
-   Works for LTR and RTL sites: direction-dependent values switch
-   automatically on <html dir="rtl">.
+   ALL ENGLISH SITES — shared styles
+   https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/all-sites/main-en.css
 
-   Loaded on every site from GitHub (all-sites/main.css), before the
-   site's own file (<SITE>/style.css). Put site-only rules and token
-   overrides from section 0 in the site's own file, not here.
+   Load this first, then the site's own file (for example
+   RAKGOV/rak-en.css). The site file sets the tokens that differ per site
+   and holds the rules that only fit that site.
 
-   0  Design tokens
-   1  Spacing system
-   2  Utility classes
-   3  Typography
-   4  Layout helpers
-   5  Components
-      5.1  Content block – quote side
-      5.2  Service cards (external-link label, icon, clickable card)
-      5.3  Service cards – 2 column variant  (.service-cards-2col)
-      5.4  Tile cards (quick links)
-      5.5  Promo banner                      (.promo-banner)
-      5.6  Hero selector
-      5.7  Quick links sidebar
-      5.8  Search fields
-      5.9  Featured image & article images
-      5.10 Sitemap
-   6  Dark theme
-
-   Breakpoints (media queries cannot read CSS variables)
-     Mobile ≤ 767px · Desktop ≥ 768px · Tablet 768–1100px (tiles)
-     Wide ≥ 1080px / ≤ 1079px
+   A1  Design tokens shared by every site
+   B   Shared base (B1–B7)
    ########################################################################## */
 
 
 /* ==========================================================================
-   0. DESIGN TOKENS
+   A1. DESIGN TOKENS (same on every site)
+   Set in each site file instead: --external-link-icon,
+   --featured-image-gap, --featured-image-gap-desktop
    ========================================================================== */
 
 :root {
@@ -45,10 +26,9 @@
     --placeholder-color: #999;
 
     /* External link indicator (cards and tiles that open in a new tab) */
-    --external-link-label: "Opens in a new tab";
-    --external-link-dir: ltr;
+    --external-link-label: "Visit RAK Digital";
+    --external-link-dir: ltr;                   /* ltr or rtl */
     --external-link-icon-flip: 1;               /* -1 mirrors the icon */
-    --external-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6'/%3E%3Cpath d='M20 4l-9 9'/%3E%3Cpath d='M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'/%3E%3C/svg%3E");
 
     /* Widths */
     --container-max: 1152px;
@@ -66,25 +46,46 @@
     --heading-spacing: 58px;
     --heading-spacing-mob: 40px;
     --page-end-padding: clamp(48px, 8vw, 96px);
-    --featured-image-gap: 16px;                 /* space above featured images (mobile) */
-    --featured-image-gap-desktop: 32px;         /* ... and from 768px */
     --bullet-points-indentation: 48px;          /* .initiatives-indentation (desktop) */
     --bullet-points-indentation-mob: 32px;      /* ... and mobile */
 }
 
-/* Right-to-left sites (e.g. Arabic) */
-html[dir="rtl"] {
-    --external-link-dir: rtl;
-    --external-link-icon-flip: -1;
-}
 
-html:lang(ar) {
-    --external-link-label: "يفتح في نافذة جديدة";
-}
+/* ##########################################################################
+   PART B — SHARED BASE
+   Used by every English site.
+
+   B1  Spacing system
+   B2  Utility classes
+   B3  Typography
+   B4  Layout helpers
+   B5  Components
+       5.1  Content block – quote side
+       5.2  Service cards
+       5.3  Service cards – 2 column variant
+       5.4  Tile cards (quick links)
+       5.5  Promo banner
+       5.6  Hero selector
+       5.7  Quick links sidebar
+       5.8  Search fields
+       5.9  Featured image & article images
+       5.10 Sitemap
+   B6  Dark theme
+   B7  Rules gathered from the site files
+
+   Breakpoints (media queries cannot read CSS variables)
+     Mobile ≤ 767px · Desktop ≥ 768px · Tablet 768–1100px (tiles)
+     Wide ≥ 1080px / ≤ 1079px
+
+   Legacy class names: Courts and DED still use .rak-digital-banner,
+   .courts-service-cards-v2 and .courts-heading-spacing. They are matched
+   next to the new names (.promo-banner, .service-cards-2col,
+   .heading-spacing). Remove them once those blocks are renamed.
+   ########################################################################## */
 
 
 /* ==========================================================================
-   1. SPACING SYSTEM
+   B1. SPACING SYSTEM
    ========================================================================== */
 
 /* Component padding (add these classes to blocks) */
@@ -170,7 +171,7 @@ html:lang(ar) {
 
 
 /* ==========================================================================
-   2. UTILITY CLASSES (only apply where the class is added)
+   B2. UTILITY CLASSES (only apply where the class is added)
    ========================================================================== */
 
 .margin-zero {
@@ -206,13 +207,13 @@ html:lang(ar) {
 }
 
 /* Extra top space above a section heading */
-.heading-spacing {
+:is(.heading-spacing, .courts-heading-spacing) {
     padding-top: var(--heading-spacing) !important;
     font-weight: 500 !important;
 }
 
 @media (max-width: 767px) {
-    .heading-spacing {
+    :is(.heading-spacing, .courts-heading-spacing) {
         padding-top: var(--heading-spacing-mob) !important;
     }
 }
@@ -236,7 +237,7 @@ html:lang(ar) {
 
 
 /* ==========================================================================
-   3. TYPOGRAPHY
+   B3. TYPOGRAPHY
    ========================================================================== */
 
 /* Small, muted group headers */
@@ -259,7 +260,7 @@ html:lang(ar) {
 
 
 /* ==========================================================================
-   4. LAYOUT HELPERS
+   B4. LAYOUT HELPERS
    ========================================================================== */
 
 /* Full-width single posts without sidebar */
@@ -277,7 +278,7 @@ html:lang(ar) {
 
 
 /* ==========================================================================
-   5. COMPONENTS
+   B5. COMPONENTS
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -371,13 +372,13 @@ a.content-block__service-arrow[target="_blank"]::after {
    Add class: .service-cards-2col
    -------------------------------------------------------------------------- */
 
-.service-cards-2col .content-block__service-grid {
+:is(.service-cards-2col, .courts-service-cards-v2) .content-block__service-grid {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 24px !important;
 }
 
-.service-cards-2col .content-block__service-card {
+:is(.service-cards-2col, .courts-service-cards-v2) .content-block__service-card {
     position: relative;
     min-height: 132px !important;
     padding: 24px !important;
@@ -385,31 +386,31 @@ a.content-block__service-arrow[target="_blank"]::after {
     box-sizing: border-box;
 }
 
-.service-cards-2col .content-block__service-top {
+:is(.service-cards-2col, .courts-service-cards-v2) .content-block__service-top {
     padding-right: 0 !important;
 }
 
-.service-cards-2col .content-block__service-desc {
+:is(.service-cards-2col, .courts-service-cards-v2) .content-block__service-desc {
     max-width: 100%;
 }
 
-.service-cards-2col .content-block__service-arrow {
+:is(.service-cards-2col, .courts-service-cards-v2) .content-block__service-arrow {
     position: absolute !important;
     inset-inline-end: 24px;
 }
 
 /* Clickable card: the arrow is positioned here, so its overlay is made
    oversized and the card clips it to the card's own edges. */
-.service-cards-2col .content-block__service-card:has(a.content-block__service-arrow) {
+:is(.service-cards-2col, .courts-service-cards-v2) .content-block__service-card:has(a.content-block__service-arrow) {
     overflow: hidden;
 }
 
-.service-cards-2col .content-block__service-card a.content-block__service-arrow::before {
+:is(.service-cards-2col, .courts-service-cards-v2) .content-block__service-card a.content-block__service-arrow::before {
     inset: -100vmax;
 }
 
 @media (max-width: 767px) {
-    .service-cards-2col .content-block__service-grid {
+    :is(.service-cards-2col, .courts-service-cards-v2) .content-block__service-grid {
         grid-template-columns: 1fr !important;
         gap: 16px !important;
     }
@@ -475,6 +476,16 @@ a.content-block__service-arrow[target="_blank"]::after {
     width: 16px !important;
     height: 16px !important;
     margin-inline-start: 10px !important;
+}
+
+/* Tile 4 has a long title that needs balanced wrapping */
+.content-block--tile-cards .content-block__tile:nth-child(4) .content-block__tile-label {
+    max-width: 160px !important;
+    text-wrap: balance;
+}
+
+.content-block--tile-cards .content-block__tile:nth-child(4) .content-block__tile-lastword {
+    display: inline !important;
 }
 
 /* External label */
@@ -556,12 +567,12 @@ a.content-block__service-arrow[target="_blank"]::after {
    Add class: .promo-banner  (logo + text in a rounded, clickable bar)
    -------------------------------------------------------------------------- */
 
-.promo-banner {
+:is(.promo-banner, .rak-digital-banner) {
     padding-inline: 16px;
     cursor: pointer;
 }
 
-.promo-banner > .section__content > .content-block__container {
+:is(.promo-banner, .rak-digital-banner) > .section__content > .content-block__container {
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center;
@@ -577,23 +588,23 @@ a.content-block__service-arrow[target="_blank"]::after {
     gap: 60px !important;
 }
 
-.promo-banner > .section__content > .content-block__container:hover {
+:is(.promo-banner, .rak-digital-banner) > .section__content > .content-block__container:hover {
     border-color: var(--brand-accent);
 }
 
 /* Logo */
-.promo-banner > .section__content > .content-block__container > figure {
+:is(.promo-banner, .rak-digital-banner) > .section__content > .content-block__container > figure {
     flex: 0 0 auto;
 }
 
-.promo-banner > .section__content > .content-block__container > figure img {
+:is(.promo-banner, .rak-digital-banner) > .section__content > .content-block__container > figure img {
     display: block;
     width: auto;
     height: 55px;
 }
 
 /* Inner text container */
-.promo-banner .content-block__container .content-block__container {
+:is(.promo-banner, .rak-digital-banner) .content-block__container .content-block__container {
     flex-direction: unset;
     width: auto;
     max-width: none;
@@ -602,7 +613,7 @@ a.content-block__service-arrow[target="_blank"]::after {
     border: 0;
 }
 
-.promo-banner .content-block__container .content-block__container p {
+:is(.promo-banner, .rak-digital-banner) .content-block__container .content-block__container p {
     max-width: 640px;
     margin: 0 !important;
     align-content: center !important;
@@ -611,18 +622,18 @@ a.content-block__service-arrow[target="_blank"]::after {
 }
 
 @media (max-width: 767px) {
-    .promo-banner > .section__content > .content-block__container {
+    :is(.promo-banner, .rak-digital-banner) > .section__content > .content-block__container {
         align-items: flex-start;
         gap: 24px !important;
         padding: 16px 24px !important;
         border-radius: 20px;
     }
 
-    .promo-banner > .section__content > .content-block__container > figure img {
+    :is(.promo-banner, .rak-digital-banner) > .section__content > .content-block__container > figure img {
         width: 100px;
     }
 
-    .promo-banner .content-block__container .content-block__container p {
+    :is(.promo-banner, .rak-digital-banner) .content-block__container .content-block__container p {
         width: unset;
         font-size: 16px;
     }
@@ -848,7 +859,7 @@ section:not(.sitemap-section) + .sitemap-section {
     grid-template-columns: minmax(0, 1fr);
 }
 
-.sitemap-section ul.sitemap_list--2col {
+.sitemap-section ul.sitemap_list--courts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -901,7 +912,7 @@ section:not(.sitemap-section) + .sitemap-section {
     }
 
     .sitemap-section ul.sitemap_list,
-    .sitemap-section ul.sitemap_list--2col,
+    .sitemap-section ul.sitemap_list--courts,
     .sitemap-section .wp-block-columns.sitemap__explore {
         grid-template-columns: minmax(0, 1fr);
     }
@@ -909,13 +920,227 @@ section:not(.sitemap-section) + .sitemap-section {
 
 
 /* ==========================================================================
-   6. DARK THEME
+   B6. DARK THEME
    ========================================================================== */
 
 [data-theme="dark"] {
     --text-subtle: var(--muted-text, #a69a8e);
 }
 
-[data-theme="dark"] .promo-banner > .section__content > .content-block__container {
+[data-theme="dark"] :is(.promo-banner, .rak-digital-banner) > .section__content > .content-block__container {
     background-color: var(--surface-subtle, #2a2827) !important;
+}
+
+
+/* ==========================================================================
+   B7. RULES GATHERED FROM THE SITE FILES
+   Each rule here used to be on one or more English sites only. Where it
+   had the same value everywhere it appeared, it now applies to all of
+   them. Rules whose values differ between sites stay in the site files.
+   "html " in front of a selector keeps the strength these rules had.
+   ========================================================================== */
+
+/* Header logo size (was: Municipality) */
+html .header-logo > img {
+    height: 44px !important;
+}
+
+/* GWP layout fixes: titles full width, no extra padding around components
+   (was: Heritage, Municipality, RAK) */
+html .section-heading__right,
+html .content-block__right {
+    padding-inline-end: unset !important;
+}
+
+html .section__content .section-heading {
+    padding-block: 0 !important;
+}
+
+html :is(.info-cards, .heritage-listing, .content-accordion__text-only-container,
+         .split-layout__container, .content-carousel,
+         .content-carousel__inner, .list-group) {
+    padding-block: 0 !important;
+}
+
+/* Image-label grid and feature-card rows: 20px gap on mobile (was: RAK) */
+@container (max-width: 767px) {
+    html .content-block__image-label-grid,
+    html .feature-cards__row {
+        gap: 20px !important;
+    }
+}
+
+/* Articles and single posts */
+html .article-layout {                                   /* was: RAK */
+    padding-bottom: 0 !important;
+}
+
+html .single-post-content > *:last-child {               /* was: RAK */
+    padding-bottom: var(--page-end-padding) !important;
+}
+
+html .single-post-title {                                /* was: Heritage, Municipality */
+    padding-bottom: clamp(40px, 3.125vw, 52px) !important;
+}
+
+html .single main#main {                                 /* was: Heritage, Municipality */
+    margin-bottom: unset !important;
+}
+
+/* Heritage and government single pages (was: Heritage, Municipality) */
+html .heritage-single__rich a {
+    color: var(--link-text) !important;
+    text-decoration: none !important;
+}
+
+html .heritage-single__subtitle,
+html .gov-single__name {
+    max-width: unset !important;
+}
+
+/* Plain text links: underline on hover (was: all except DED) */
+html .page-content a:not([class]):hover,
+html .heritage-single__container a:not([class]):hover {
+    text-decoration: underline !important;
+}
+
+/* Leadership carousel (was: Heritage, Municipality) */
+html .leadership-listing__carousel {
+    padding-bottom: 0 !important;
+}
+
+/* Carousel cards: same hover as the band button (was: Heritage, Municipality).
+   ":root" keeps the strength of the old top-level "&" selectors. */
+:root .gov-carousel__card-link {
+    transition: background-color var(--ease-default) !important;
+}
+
+:root .gov-carousel__card-link:hover {
+    opacity: 1 !important;
+    background: var(--surface-hover-strong) !important;
+}
+
+:root .gov-carousel__card-link-icon {
+    font-size: 18px;
+    transition: translate var(--ease-default);
+}
+
+:root .gov-carousel__card-link:hover .gov-carousel__card-link-icon {
+    translate: 5px;
+}
+
+:root .gov-carousel__card-link:hover .gov-carousel__card-link-icon:dir(rtl) {
+    translate: -5px;
+}
+
+/* Spacing tweaks (was: Heritage, Municipality) */
+html .wp-block-columns {
+    padding-block: 0 !important;
+}
+
+html .faq-listing__pagination-wrap {
+    margin-block-start: 0 !important;
+}
+
+html .social-media {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+html .content-block__service-desc {
+    margin-block-start: 0 !important;
+}
+
+html .featured-image {
+    margin-bottom: 0 !important;
+}
+
+html .article-layout .wp-block-image {
+    padding-block: 1rem !important;
+}
+
+html .article-layout .wp-block-image img {
+    width: 100%;
+    aspect-ratio: 950 / 445;
+}
+
+@media (min-width: 768px) {
+    html #postal-address {
+        padding-top: 0 !important;
+    }
+
+    html .content-block__service-card {
+        min-height: unset !important;
+    }
+
+    html .contact-info {
+        gap: var(--general-gap) !important;
+    }
+}
+
+@media (max-width: 767px) {
+    html .contact-info {
+        gap: var(--general-mob-gap) !important;
+    }
+}
+
+/* Slightly translucent card panels (was: all except DED) */
+html .feature-card__panel,
+html .content-carousel__split-card-panel,
+html .content-carousel__info-card-panel {
+    opacity: 0.95;
+}
+
+/* Language switcher: reverse option order (was: Heritage, Municipality) */
+html .language-modal__options {
+    flex-direction: column-reverse !important;
+}
+
+/* .cancel-mobile-padding-top also removes bottom padding
+   (was: Heritage, Municipality) */
+@media (max-width: 767px) {
+    html .cancel-mobile-padding-top {
+        padding-bottom: 0 !important;
+    }
+}
+
+/* Volunteer accordion: bulleted lists (was: Heritage) */
+html .volunteer-accordion .accordion-list__content ul {
+    list-style: disc !important;
+    padding-inline-start: 24px !important;
+    margin: 0 0 16px !important;
+}
+
+html .volunteer-accordion .accordion-list__content li {
+    list-style: disc !important;
+    margin-bottom: 4px;
+}
+
+html .volunteer-accordion .accordion-list__content h5 {
+    margin: 24px 0 8px !important;
+}
+
+/* History pages: columns with a quick-links sidebar (was: Heritage) */
+@media (max-width: 1079px) {
+    html .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child
+      > * {
+        border-top: none !important;
+    }
+
+    html .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child
+      > :last-child {
+        padding-block-end: 32px !important;
+    }
+}
+
+@media (max-width: 782px) {
+    html .wp-block-column:has(> .quick-links--sidebar) {
+        display: none !important;
+    }
+
+    html .wp-block-columns:has(.quick-links--sidebar) {
+        gap: 0 !important;
+    }
 }

@@ -3,24 +3,35 @@
 Custom CSS for our websites, tracked in Git instead of the WordPress Customizer.
 
 ```
-all-sites/main.css     shared by every site (load first)
-RAKGOV/style.css       site-specific overrides
-Heritage/style.css
-MUN/style.css
-Courts/style.css
-PSD/style.css
+all-sites/main-en.css    shared by every English site (load first)
+Courts/court-en.css      English site-only rules (load second)
+DED/ded-en.css
+Heritage/her-en.css
+MUN/mun-en.css
+RAKGOV/rak-en.css
+PSD/psd-en.css           (empty for now)
+
+*/…-ar.css               Arabic Customizer CSS, not split yet
 ```
+
+## What goes where
+
+- **`all-sites/main-en.css`**: every rule that is the same on all English sites,
+  plus any rule that was on only some sites but had the same value wherever it appeared.
+- **Site file**: design tokens and rules whose values differ between sites,
+  page-ID rules, and rules a site turned off on purpose.
 
 ## Adding to a site
 
 Put both links in the site's header, **shared first, then the site's own file**:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/all-sites/main.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/all-sites/main-en.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/rak-en.css">
 ```
 
-Swap `RAKGOV` for the site's folder. Folder names are case-sensitive in the URL.
+Site files: `Courts/court-en.css`, `DED/ded-en.css`, `Heritage/her-en.css`,
+`MUN/mun-en.css`, `RAKGOV/rak-en.css`. Paths are case-sensitive.
 
 ## After pushing a change
 
