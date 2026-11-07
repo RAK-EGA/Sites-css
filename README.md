@@ -9,8 +9,7 @@ all-sites/main-ar.css    shared by every Arabic site (RTL)
 <Site>/<site>-en.css     English site-only rules
 <Site>/<site>-ar.css     Arabic site-only rules
 
-Sites: Courts/court, DED/ded, Heritage/her, MUN/mun, RAKGOV/rak
-PSD/psd-en.css is empty for now.
+Sites: Courts/court, DED/ded, Heritage/her, MUN/mun, PSD/psd, RAKGOV/rak
 ```
 
 ## What goes where
@@ -39,7 +38,7 @@ Arabic site (example: RAK):
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/rak-ar.css">
 ```
 
-Swap `RAKGOV/rak` for `Courts/court`, `DED/ded`, `Heritage/her` or `MUN/mun`.
+Swap `RAKGOV/rak` for `Courts/court`, `DED/ded`, `Heritage/her`, `MUN/mun` or `PSD/psd`.
 Paths are case-sensitive.
 
 ## After pushing a change

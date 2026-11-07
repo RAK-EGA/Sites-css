@@ -1,0 +1,215 @@
+/* ##########################################################################
+   PSD — Arabic (RTL), site-only styles
+   https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/PSD/psd-ar.css
+
+   Load AFTER all-sites/main-ar.css. Only what differs from the other
+   sites lives here; everything shared is in main-ar.css.
+
+   Same rules as psd-en.css. The Arabic label, RTL direction and mirrored
+   icon come from main-ar.css. The services tooltip text below is still
+   English: change --tooltip-text if the Arabic site needs its own text.
+
+   A1  Design tokens that differ per site
+   A2  Page-specific rules (by page ID)
+   A3  Site rules
+   ########################################################################## */
+
+
+/* ==========================================================================
+   A1. DESIGN TOKENS (values that differ per site)
+   ========================================================================== */
+
+:root {
+    --external-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6'/%3E%3Cpath d='M20 4l-9 9'/%3E%3Cpath d='M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'/%3E%3C/svg%3E");
+    --featured-image-gap: 16px;            /* space above featured images (mobile) */
+    --featured-image-gap-desktop: 32px;    /* ... and from 768px */
+}
+
+
+/* ==========================================================================
+   A2. PAGE-SPECIFIC RULES (by page ID)
+   ========================================================================== */
+
+/* Page 910528 on tablet and mobile: single column, heading dividers,
+   paragraph and form spacing */
+@media (max-width: 1079px) {
+    /* Remove the hidden quick-links column completely */
+    body:is(.page-id-910528, .postid-910528) .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:first-child {
+        display: none !important;
+    }
+
+    /* Main content column takes the full width */
+    body:is(.page-id-910528, .postid-910528) .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child {
+        flex-basis: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* No dividers except above main section headings */
+    body:is(.page-id-910528, .postid-910528) .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child
+      > :not(h2.wp-block-heading) {
+        border-top: 0 !important;
+    }
+
+    /* Paragraph spacing */
+    body:is(.page-id-910528, .postid-910528) .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child
+      > p {
+        margin: 0 !important;
+    }
+
+    body:is(.page-id-910528, .postid-910528) .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child
+      > p + p {
+        margin-top: 16px !important;
+    }
+
+    /* Main section headings */
+    body:is(.page-id-910528, .postid-910528) .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child
+      > h2.wp-block-heading {
+        margin: 0 0 16px !important;
+        padding: 0 !important;
+        border-top: 0 !important;
+    }
+
+    /* Divider and spacing between main sections */
+    body:is(.page-id-910528, .postid-910528) .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child
+      > h2.wp-block-heading:not(:first-child) {
+        border-top: 2px solid var(--border-color) !important;
+        margin-top: 40px !important;
+        padding-top: 36px !important;
+    }
+
+    /* Space between intro text and form */
+    body:is(.page-id-910528, .postid-910528) .wp-block-columns:has(.quick-links--sidebar)
+      > .wp-block-column:last-child
+      > .rak-form-embed {
+        margin-top: 32px !important;
+    }
+
+    /* Extra space above the "Upload photo" field */
+    body:is(.page-id-910528, .postid-910528) .rak-form__field--file {
+        margin-top: 20px !important;
+    }
+}
+
+
+/* ==========================================================================
+   A3. SITE RULES
+   ========================================================================== */
+
+/* Tables keep their natural minimum width from 782px */
+@media (min-width: 782px) {
+    html .gn-table table {
+        min-width: inherit !important;
+    }
+}
+
+/* Logged-in users: hide sidebar quick links up to 782px
+   (the shared base hides them for everyone up to 767px) */
+@media (max-width: 782px) {
+    html body.admin-bar .quick-links--sidebar {
+        display: none;
+    }
+}
+
+/* News section title stays on one line on desktop */
+@media (min-width: 768px) {
+    html .news__title {
+        white-space: nowrap;
+    }
+}
+
+/* Services tooltip: a hint on the arrow of online services.
+   Add the service URLs to the list below.
+   Uses CSS nesting (&) so the URL list only has to be written once. */
+html .services-listing__item:is(
+    [href$="/trade-licence-noc/"],
+    [href$="/another-online-service/"]
+) {
+    --tooltip-text: "Apply for this service online.";
+    --tooltip-bg: #172b26;
+
+    position: relative;
+    overflow: visible;
+
+    &:is(:hover, :focus-visible) {
+        z-index: 10;
+    }
+
+    & .services-listing__arrow {
+        position: relative;
+        overflow: visible;
+        pointer-events: auto;
+    }
+
+    /* Shared tooltip styles */
+    & .services-listing__arrow::before,
+    & .services-listing__arrow::after {
+        position: absolute;
+        inset: auto;
+        z-index: 20;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(5px);
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    /* Bubble */
+    & .services-listing__arrow::after {
+        content: var(--tooltip-text);
+        bottom: calc(100% + 12px);
+        inset-inline-end: 0;
+        box-sizing: border-box;
+        width: 220px;
+        max-width: calc(100vw - 48px);
+        padding: 12px 16px;
+        border: 1px solid rgb(255 255 255 / 12%);
+        border-radius: 10px;
+        background: var(--tooltip-bg);
+        box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+        color: #fff;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: normal;
+        text-align: start;
+        text-transform: none;
+        white-space: normal;
+    }
+
+    /* Small pointer below the bubble */
+    & .services-listing__arrow::before {
+        content: "";
+        bottom: 100%;
+        inset-inline-end: calc(50% - 6px);
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-top-color: var(--tooltip-bg);
+    }
+
+    /* Show on arrow hover, or when the link has keyboard focus */
+    & .services-listing__arrow:hover::before,
+    & .services-listing__arrow:hover::after,
+    &:focus-visible .services-listing__arrow::before,
+    &:focus-visible .services-listing__arrow::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        & .services-listing__arrow::before,
+        & .services-listing__arrow::after {
+            transform: none;
+            transition: none;
+        }
+    }
+}
