@@ -966,13 +966,7 @@ html :is(.info-cards, .heritage-listing, .content-accordion__text-only-container
 }
 
 /* Articles and single posts */
-html .article-layout {                                   /* was: RAK */
-    padding-bottom: 0 !important;
-}
 
-html .single-post-content > *:last-child {               /* was: RAK */
-    padding-bottom: var(--page-end-padding) !important;
-}
 
 html .single-post-title {                                /* was: Heritage, Municipality */
     padding-bottom: clamp(40px, 3.125vw, 52px) !important;
