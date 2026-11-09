@@ -1026,7 +1026,7 @@ html .wp-block-columns {
 }
 
 html .faq-listing__pagination-wrap {
-    margin-block-start: 0 !important;
+    /*margin-block-start: 0 !important;*/
 }
 
 html .social-media {
