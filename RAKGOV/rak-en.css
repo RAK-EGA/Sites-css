@@ -47,3 +47,13 @@ html .content-block__service-title {
 html h1.single-post-title {
     max-width: unset !important;
 }
+
+
+/* Articles and single posts */
+html .article-layout {                                   /* was: RAK */
+    padding-bottom: 0 !important;
+}
+
+html .single-post-content > *:last-child {               /* was: RAK */
+    padding-bottom: var(--page-end-padding) !important;
+}
