@@ -145,6 +145,10 @@
     .news__title {
         padding-inline-end: 0 !important;
     }
+
+    .gn-post-facts-block {
+        margin: 32px 0 !important;
+    }
 }
 
 /* Mobile gaps */
@@ -199,6 +203,12 @@
 @media (max-width: 767px) {
     .cancel-mobile-padding-top {
         padding-top: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile_no_padding {
+        padding-block: 0 !important;
     }
 }
 
@@ -1114,6 +1124,7 @@ html .gov-single__name {
 
 /* Plain text links: underline on hover (was: all except DED) */
 html .page-content a:not([class]):hover,
+html .article-layout a:not([class]):hover,
 html .heritage-single__container a:not([class]):hover {
     text-decoration: underline !important;
 }
