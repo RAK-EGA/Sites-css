@@ -997,7 +997,7 @@ a.gov-carousel__featured-card-btn:hover > .content-block__btn-arrow {
    -------------------------------------------------------------------------- */
 
 html p.wp-block-paragraph a[target="_blank"] {
-    --inline-external-icon: url("https://stg-rakgov-staging.kinsta.cloud/wp-content/uploads/2026/11/Open-link-1.svg");
+    --inline-external-icon: url("icons/open-link.svg");   /* all-sites/icons/, served next to this file */
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;            /* each line of a wrapped link gets its own underline */
 }
