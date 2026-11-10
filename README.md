@@ -27,15 +27,15 @@ then its own file for the same language.**
 English site (example: RAK):
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/all-sites/main-en.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/rak-en.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RAK-EGA/Sites-css@main/all-sites/main-en.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RAK-EGA/Sites-css@main/RAKGOV/rak-en.css">
 ```
 
 Arabic site (example: RAK):
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/all-sites/main-ar.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Samy-Sorial/Sites-css@main/RAKGOV/rak-ar.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RAK-EGA/Sites-css@main/all-sites/main-ar.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RAK-EGA/Sites-css@main/RAKGOV/rak-ar.css">
 ```
 
 Swap `RAKGOV/rak` for `Courts/court`, `DED/ded`, `Heritage/her`, `MUN/mun` or `PSD/psd`.
