@@ -1087,7 +1087,7 @@ html .section__content .section-heading {
 
 html :is(.info-cards, .heritage-listing, .content-accordion__text-only-container,
          .split-layout__container, .content-carousel,
-         .content-carousel__inner, .list-group) {
+         .list-group) {
     padding-block: 0 !important;
 }
 
