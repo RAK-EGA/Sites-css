@@ -70,6 +70,8 @@
        5.8  Search fields
        5.9  Featured image & article images
        5.10 Sitemap
+       5.11 Buttons – external vs internal links
+       5.12 External links in text
    B6  Dark theme
    B7  Rules gathered from the site files
 
@@ -143,6 +145,10 @@
     .news__title {
         padding-inline-end: 0 !important;
     }
+
+    .gn-post-facts-block {
+        margin: 32px 0 !important;
+    }
 }
 
 /* Mobile gaps */
@@ -197,6 +203,12 @@
 @media (max-width: 767px) {
     .cancel-mobile-padding-top {
         padding-top: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile_no_padding {
+        padding-block: 0 !important;
     }
 }
 
@@ -919,6 +931,100 @@ section:not(.sitemap-section) + .sitemap-section {
 }
 
 
+/* --------------------------------------------------------------------------
+   5.11 Buttons – external vs internal links
+   Content-block, carousel-overlay and featured-card buttons.
+   External (target="_blank"): solid black, arrow turned to point ↗.
+   Internal: theme style, lighter hover. Dark theme: see B6.
+   -------------------------------------------------------------------------- */
+
+/* External */
+a.content-carousel__overlay-btn[target="_blank"],
+a.content-block__btn[target="_blank"],
+a.gov-carousel__featured-card-btn[target="_blank"] {
+    background-color: black !important;
+    color: #fff !important;
+}
+
+a.content-carousel__overlay-btn[target="_blank"]:hover,
+a.content-block__btn[target="_blank"]:hover,
+a.gov-carousel__featured-card-btn[target="_blank"]:hover {
+    background-color: var(--surface-dark-hover) !important;
+    color: var(--on-dark-surface) !important;
+    border-color: var(--surface-dark-hover) !important;
+}
+
+/* Internal */
+a.content-carousel__overlay-btn:not([target="_blank"]):hover,
+a.content-block__btn:not([target="_blank"]):hover,
+a.gov-carousel__featured-card-btn:not([target="_blank"]):hover {
+    background-color: var(--surface-hover-strong);
+    color: var(--heading-text);
+    text-decoration: none;
+}
+
+/* Arrow: external buttons point ↗ */
+a.content-block__btn[target="_blank"] > [class$="-glyph"],
+a.content-block__btn[target="_blank"] > [class*="glyph"],
+a.content-carousel__overlay-btn[target="_blank"] > [class$="-glyph"],
+a.content-carousel__overlay-btn[target="_blank"] > [class*="glyph"],
+a.gov-carousel__featured-card-btn[target="_blank"] > [class$="-glyph"],
+a.gov-carousel__featured-card-btn[target="_blank"] > [class*="glyph"],
+a.content-block__btn[target="_blank"] > .content-block__btn-arrow,
+a.content-carousel__overlay-btn[target="_blank"] > .content-block__btn-arrow,
+a.gov-carousel__featured-card-btn[target="_blank"] > .content-block__btn-arrow {
+    transform: rotate(315deg) !important;
+}
+
+/* Arrow: nudges on hover (all buttons) */
+a.content-block__btn:hover > [class$="-glyph"],
+a.content-block__btn:hover > [class*="glyph"],
+a.content-carousel__overlay-btn:hover > [class$="-glyph"],
+a.content-carousel__overlay-btn:hover > [class*="glyph"],
+a.gov-carousel__featured-card-btn:hover > [class$="-glyph"],
+a.gov-carousel__featured-card-btn:hover > [class*="glyph"],
+a.content-block__btn:hover > .content-block__btn-arrow,
+a.content-carousel__overlay-btn:hover > .content-block__btn-arrow,
+a.gov-carousel__featured-card-btn:hover > .content-block__btn-arrow {
+    translate: 5px;
+}
+
+
+/* --------------------------------------------------------------------------
+   5.12 External links in text
+   "Opens in new tab" arrow after external links in paragraphs.
+   On hover the underline runs under the text AND the arrow.
+   -------------------------------------------------------------------------- */
+
+html p.wp-block-paragraph a[target="_blank"] {
+    --inline-external-icon: url("https://stg-rakgov-staging.kinsta.cloud/wp-content/uploads/2026/11/Open-link-1.svg");
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;            /* each line of a wrapped link gets its own underline */
+}
+
+html p.wp-block-paragraph a[target="_blank"]::after {
+    content: "" / "(opens in a new tab)";
+    display: inline-block;
+    width: 0.75em;
+    height: 0.75em;
+    margin-inline-start: 0.3em;
+    vertical-align: 0.05em;
+    background: currentColor;               /* same colour as the link, also on hover */
+    transform: scaleX(var(--external-link-icon-flip, 1));
+    -webkit-mask: var(--inline-external-icon) center / contain no-repeat;
+    mask: var(--inline-external-icon) center / contain no-repeat;
+}
+
+/* Hover / keyboard focus: one continuous underline under text + arrow */
+html p.wp-block-paragraph a[target="_blank"]:is(:hover, :focus-visible) {
+    text-decoration: none !important;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: 0 calc(100% - 0.05em);
+}
+
+
 /* ==========================================================================
    B6. DARK THEME
    ========================================================================== */
@@ -929,6 +1035,34 @@ section:not(.sitemap-section) + .sitemap-section {
 
 [data-theme="dark"] :is(.promo-banner, .rak-digital-banner) > .section__content > .content-block__container {
     background-color: var(--surface-subtle, #2a2827) !important;
+}
+
+/* Buttons (5.11): internal buttons are outlined in white */
+[data-theme="dark"] a.content-block__btn:not([target="_blank"]),
+[data-theme="dark"] a.content-carousel__overlay-btn:not([target="_blank"]),
+[data-theme="dark"] a.gov-carousel__featured-card-btn:not([target="_blank"]) {
+    background-color: transparent !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    border-radius: 999px;
+}
+
+[data-theme="dark"] a.content-block__btn:not([target="_blank"]):hover,
+[data-theme="dark"] a.content-carousel__overlay-btn:not([target="_blank"]):hover,
+[data-theme="dark"] a.gov-carousel__featured-card-btn:not([target="_blank"]):hover {
+    background-color: var(--surface-dark-hover) !important;
+    color: var(--on-dark-surface) !important;
+    border-color: var(--surface-dark-hover) !important;
+    text-decoration: none;
+}
+
+/* Featured-card button arrow image: white, black on hover */
+[data-theme="dark"] a.gov-carousel__featured-card-btn img {
+    filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] a.gov-carousel__featured-card-btn:hover img {
+    filter: brightness(0) !important;
 }
 
 
@@ -987,6 +1121,7 @@ html .gov-single__name {
 
 /* Plain text links: underline on hover (was: all except DED) */
 html .page-content a:not([class]):hover,
+html .article-layout a:not([class]):hover,
 html .heritage-single__container a:not([class]):hover {
     text-decoration: underline !important;
 }
