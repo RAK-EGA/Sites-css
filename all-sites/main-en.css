@@ -957,7 +957,8 @@ a.gov-carousel__featured-card-btn[target="_blank"]:hover {
 /* Internal */
 a.content-carousel__overlay-btn:not([target="_blank"]):hover,
 a.content-block__btn:not([target="_blank"]):hover,
-a.gov-carousel__featured-card-btn:not([target="_blank"]):hover {
+a.gov-carousel__featured-card-btn:not([target="_blank"]):hover,
+.gov-carousel__btn:hover{
     background-color: var(--surface-hover-strong);
     color: var(--heading-text);
     text-decoration: none;
