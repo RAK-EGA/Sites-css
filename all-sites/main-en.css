@@ -999,7 +999,7 @@ a.gov-carousel__featured-card-btn:hover > .content-block__btn-arrow {
 /* External links in paragraphs: "opens in new tab" arrow after the text.
    On hover the underline runs under the text AND the arrow. */
 .page-content a:not([class])[target="_blank"],.article-layout a:not([class])[target="_blank"] {
-    --inline-external-icon: url("https://heritage-stg.rak.ae/wp-content/uploads/2026/11/Open-link.svg");
+    --inline-external-icon: url("icons/open-link.svg");   /* all-sites/icons/, served next to this file */
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;            /* each line of a wrapped link gets its own underline */
 }
