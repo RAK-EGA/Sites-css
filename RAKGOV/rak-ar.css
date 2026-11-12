@@ -16,7 +16,7 @@
    ========================================================================== */
 
 :root {
-    --external-link-icon: url("https://stg-courts-staging.kinsta.cloud/wp-content/uploads/2026/10/Open-link.svg");
+    --external-link-icon: url("../all-sites/icons/open-link.svg");
     --featured-image-gap: 16px;            /* space above featured images (mobile) */
     --featured-image-gap-desktop: 32px;    /* ... and from 768px */
 }
