@@ -1268,3 +1268,12 @@ html .volunteer-accordion .accordion-list__content h5 {
         gap: 0 !important;
     }
 }
+
+/** News post last child padding **/
+.single-post-footer {
+   display: none !important;
+}
+
+.single-post-content > *:last-child {
+    padding-bottom: var(--page-end-padding) !important;
+}
