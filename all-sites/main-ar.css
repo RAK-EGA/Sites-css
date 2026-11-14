@@ -1293,3 +1293,12 @@ html .rulers-table th:first-child,
 html .rulers-table td:first-child {
     border-inline-end: 2px solid #eeeae7 !important;
 }
+
+/** News post last child padding **/
+.single-post-footer {
+   display: none !important;
+}
+
+.single-post-content > *:last-child {
+    padding-bottom: var(--page-end-padding) !important;
+}
