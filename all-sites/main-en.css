@@ -942,8 +942,9 @@ section:not(.sitemap-section) + .sitemap-section {
 a.content-carousel__overlay-btn[target="_blank"],
 a.content-block__btn[target="_blank"],
 a.gov-carousel__featured-card-btn[target="_blank"] {
-    background-color: black !important;
-    color: #fff !important;
+   border: 1.67px solid var(--heading-text);
+   color: var(--on-dark-surface);
+   background: var(--heading-text);
 }
 
 a.content-carousel__overlay-btn[target="_blank"]:hover,
