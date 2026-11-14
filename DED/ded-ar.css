@@ -48,18 +48,4 @@ body:is(
    A3. SITE RULES
    ========================================================================== */
 
-/* Service cards: centre the title row and add space above titles
-   (kept per site: Heritage and Municipality turned this off on purpose,
-   and the Courts Arabic customizer does not have it) */
-html .content-block__service-top {
-    align-items: center !important;
-}
 
-html .content-block__service-title {
-    padding-top: clamp(12px, 2.5vw, 18px) !important;
-}
-
-/* Service-card blocks: no extra space above (overrides the shared 24px) */
-html .content-block--service-cards {
-    padding-top: 0 !important;
-}
