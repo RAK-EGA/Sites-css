@@ -1312,7 +1312,7 @@ margin-top: 0 !important;
 
 /* Add the replacement icon */
 .services-listing__item[target="_blank"] .services-listing__arrow::after {
-  --external-icon: url("https://github.com/RAK-EGA/Sites-css/blob/main/all-sites/icons/open-link.svg");
+  --external-icon: url("icons/open-link.svg");;
   content: "" !important;
   display: block !important;
   position: static;
