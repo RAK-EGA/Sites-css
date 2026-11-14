@@ -73,13 +73,3 @@
 html .header-logo > img {
     height: 44px !important;
 }
-
-/* Single post title width (differs per site) */
-html h1.single-post-title {
-    max-width: 70% !important;
-}
-
-/* Single posts: last paragraph has no bottom padding (differs per site) */
-html .single-post-content > .wp-block-paragraph:last-child {
-    padding-bottom: 0 !important;
-}
