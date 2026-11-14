@@ -997,14 +997,16 @@ a.gov-carousel__featured-card-btn:hover > .content-block__btn-arrow {
    The arrow is mirrored by --external-link-icon-flip (-1 in Arabic).
    -------------------------------------------------------------------------- */
 
-html p.wp-block-paragraph a[target="_blank"] {
+/* External links in paragraphs: "opens in new tab" arrow after the text.
+   On hover the underline runs under the text AND the arrow. */
+.page-content a:not([class])[target="_blank"],.article-layout a:not([class])[target="_blank"] {
     --inline-external-icon: url("icons/open-link.svg");   /* all-sites/icons/, served next to this file */
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;            /* each line of a wrapped link gets its own underline */
 }
-
-html p.wp-block-paragraph a[target="_blank"]::after {
-    content: "" / "(يفتح في نافذة جديدة)";
+ 
+.page-content a:not([class])[target="_blank"]::after,.article-layout a:not([class])[target="_blank"]::after {
+    content: "" / "(opens in a new tab)";
     display: inline-block;
     width: 0.75em;
     height: 0.75em;
@@ -1015,9 +1017,9 @@ html p.wp-block-paragraph a[target="_blank"]::after {
     -webkit-mask: var(--inline-external-icon) center / contain no-repeat;
     mask: var(--inline-external-icon) center / contain no-repeat;
 }
-
+ 
 /* Hover / keyboard focus: one continuous underline under text + arrow */
-html p.wp-block-paragraph a[target="_blank"]:is(:hover, :focus-visible) {
+.page-content a:not([class])[target="_blank"]:is(:hover, :focus-visible),.article-layout a:not([class])[target="_blank"]:is(:hover, :focus-visible) {
     text-decoration: none !important;
     background-image: linear-gradient(currentColor, currentColor);
     background-repeat: no-repeat;
