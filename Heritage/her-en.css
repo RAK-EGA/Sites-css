@@ -73,7 +73,7 @@ body.page-id-99026804 .gn-table :is(th, td) {
 
 /* Single post title width (differs per site) */
 html h1.single-post-title {
-    max-width: 70% !important;
+    max-width: unset !important;
 }
 
 
