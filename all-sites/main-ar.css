@@ -1303,3 +1303,21 @@ html .rulers-table td:first-child {
 .single-post-content > *:last-child {
     padding-bottom: var(--page-end-padding) !important;
 }
+
+/* article having metadata fixes*/
+html .single-post-title{
+	padding-bottom:0!important;
+}
+.featured-image{
+	margin-top: clamp(40px, 3.125vw, 52px) !important;
+}
+.wp-block-image img{
+	border-radius:16px !important;
+}
+
+.single-post-content {
+margin-top: 0 !important;
+}
+.single-post-header{
+	padding-bottom:clamp(40px, 3.125vw, 52px) !important;
+}
