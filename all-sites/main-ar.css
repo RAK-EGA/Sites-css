@@ -1321,3 +1321,36 @@ margin-top: 0 !important;
 .single-post-header{
 	padding-bottom:clamp(40px, 3.125vw, 52px) !important;
 }
+
+
+/*service page external links*/
+/* Hide the existing arrow */
+.services-listing__item[target="_blank"] .services-listing__arrow-icon{
+  display: none !important;
+}
+
+/* Center the replacement */
+.services-listing__item[target="_blank"] .services-listing__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add the replacement icon */
+.services-listing__item[target="_blank"] .services-listing__arrow::after {
+  --external-icon: url("https://github.com/RAK-EGA/Sites-css/blob/main/all-sites/icons/open-link.svg");
+  content: "" !important;
+  display: block !important;
+  position: static;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background: currentColor !important;
+  border: none !important;
+  box-shadow: none;
+  transform: scaleX(-1) !important;
+
+  -webkit-mask: var(--external-icon) center / contain no-repeat;
+  mask: var(--external-icon) center / contain no-repeat;
+}
+/*service page external links*/
