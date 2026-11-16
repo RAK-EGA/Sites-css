@@ -1232,7 +1232,9 @@ html .article-layout .wp-block-image img {
         gap: var(--general-mob-gap) !important;
 		margin:0 !important;
     }
-	.wp-block-column .accordion-list{
+	.wp-block-column .accordion-list,
+	.wp-block-column .wp-block-group
+	{
 		margin:0!important;
 	}
 }
