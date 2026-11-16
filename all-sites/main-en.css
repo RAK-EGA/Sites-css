@@ -1225,10 +1225,13 @@ html .article-layout .wp-block-image img {
 }
 
 @media (max-width: 767px) {
-    html .contact-info {
+    html .wp-block-column .contact-info {
         gap: var(--general-mob-gap) !important;
 		margin:0 !important;
     }
+	.wp-block-column .accordion-list{
+		margin:0!important;
+	}
 }
 /* contact us page padding issue */
 .contact-info__section {
