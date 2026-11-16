@@ -941,6 +941,8 @@ section:not(.sitemap-section) + .sitemap-section {
 /* External */
 a.content-carousel__overlay-btn[target="_blank"],
 a.content-block__btn[target="_blank"],
+a.contact-info__btn[target="_blank"],
+a.arrow-link--button[target="_blank"],
 a.gov-carousel__featured-card-btn[target="_blank"] {
    border: 1.67px solid var(--heading-text);
    color: var(--on-dark-surface);
@@ -949,6 +951,8 @@ a.gov-carousel__featured-card-btn[target="_blank"] {
 
 a.content-carousel__overlay-btn[target="_blank"]:hover,
 a.content-block__btn[target="_blank"]:hover,
+a.contact-info__btn[target="_blank"]:hover,
+a.arrow-link--button[target="_blank"]:hover,
 a.gov-carousel__featured-card-btn[target="_blank"]:hover {
     background-color: var(--surface-dark-hover) !important;
     color: var(--on-dark-surface) !important;
@@ -958,6 +962,8 @@ a.gov-carousel__featured-card-btn[target="_blank"]:hover {
 /* Internal */
 a.content-carousel__overlay-btn:not([target="_blank"]):hover,
 a.content-block__btn:not([target="_blank"]):hover,
+a.arrow-link--button:not([target="_blank"]):hover,
+a.contact-info__btn:not([target="_blank"]):hover,
 a.gov-carousel__featured-card-btn:not([target="_blank"]):hover {
     background-color: var(--surface-hover-strong);
     color: var(--heading-text);
@@ -967,6 +973,10 @@ a.gov-carousel__featured-card-btn:not([target="_blank"]):hover {
 /* Arrow: external buttons point ↗ */
 a.content-block__btn[target="_blank"] > [class$="-glyph"],
 a.content-block__btn[target="_blank"] > [class*="glyph"],
+a.contact-info__btn[target="_blank"] > [class$="-glyph"],
+a.contact-info__btn[target="_blank"] > [class*="glyph"],
+a.arrow-link--button[target="_blank"] > [class$="-glyph"],
+a.arrow-link--button[target="_blank"] > [class*="glyph"],
 a.content-carousel__overlay-btn[target="_blank"] > [class$="-glyph"],
 a.content-carousel__overlay-btn[target="_blank"] > [class*="glyph"],
 a.gov-carousel__featured-card-btn[target="_blank"] > [class$="-glyph"],
@@ -980,6 +990,10 @@ a.gov-carousel__featured-card-btn[target="_blank"] > .content-block__btn-arrow {
 /* Arrow: nudges on hover (all buttons) */
 a.content-block__btn:hover > [class$="-glyph"],
 a.content-block__btn:hover > [class*="glyph"],
+a.contact-info__btn:hover > [class$="-glyph"],
+a.contact-info__btn:hover > [class*="glyph"],
+a.arrow-link--button:hover > [class$="-glyph"],
+a.arrow-link--button:hover > [class*="glyph"],
 a.content-carousel__overlay-btn:hover > [class$="-glyph"],
 a.content-carousel__overlay-btn:hover > [class*="glyph"],
 a.gov-carousel__featured-card-btn:hover > [class$="-glyph"],
