@@ -1227,7 +1227,12 @@ html .article-layout .wp-block-image img {
 @media (max-width: 767px) {
     html .contact-info {
         gap: var(--general-mob-gap) !important;
+		margin:0 !important;
     }
+}
+/* contact us page padding issue */
+.contact-info__section {
+    padding: 0 !important;
 }
 
 /* Slightly translucent card panels (was: all except DED) */
