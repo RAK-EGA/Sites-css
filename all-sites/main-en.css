@@ -1007,7 +1007,11 @@ a.gov-carousel__featured-card-btn:hover > .content-block__btn-arrow {
     translate: 5px;
 }
 
-
+a.contact-info__btn {
+    padding: var(--cta-btn-padding) !important;
+    font-size: 20px !important;
+    height: unset !important;
+}
 /* --------------------------------------------------------------------------
    5.12 External links in text
    "Opens in new tab" arrow after external links in paragraphs.
