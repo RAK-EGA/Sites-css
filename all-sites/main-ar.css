@@ -1352,6 +1352,10 @@ margin-top: 0 !important;
 }
 .single-post-header{
 	padding-bottom:clamp(40px, 3.125vw, 52px) !important;
+	padding-top: clamp(24px, 2.5vw, 32px) !important;
+}
+.single-post-outer {
+    margin-top: unset !important;
 }
 
 
