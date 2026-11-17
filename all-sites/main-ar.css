@@ -1357,7 +1357,9 @@ margin-top: 0 !important;
 .single-post-outer {
     margin-top: unset !important;
 }
-
+.article-layout {
+    padding-bottom: 0 !important;
+}
 
 /*service page external links*/
 /* Hide the existing arrow */
