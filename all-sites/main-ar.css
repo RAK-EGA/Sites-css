@@ -944,6 +944,7 @@ a.content-block__btn[target="_blank"],
 a.contact-info__btn[target="_blank"],
 a.arrow-link--button[target="_blank"],
 a.search-result-btn[target="_blank"],
+a.feature-card__btn[target="_blank"],
 a.gov-carousel__featured-card-btn[target="_blank"] {
    border: 1.67px solid var(--heading-text);
    color: var(--on-dark-surface);
@@ -955,6 +956,7 @@ a.content-block__btn[target="_blank"]:hover,
 a.contact-info__btn[target="_blank"]:hover,
 a.arrow-link--button[target="_blank"]:hover,
 a.search-result-btn[target="_blank"]:hover,
+a.feature-card__btn[target="_blank"]:hover,
 a.gov-carousel__featured-card-btn[target="_blank"]:hover {
     background-color: var(--surface-dark-hover) !important;
     color: var(--on-dark-surface) !important;
@@ -967,6 +969,8 @@ a.content-block__btn:not([target="_blank"]):hover,
 a.arrow-link--button:not([target="_blank"]):hover,
 a.search-result-btn:not([target="_blank"]):hover,
 a.contact-info__btn:not([target="_blank"]):hover,
+a.feature-card__btn:not([target="_blank"]):hover,
+a.content-block__service-arrow:not([target="_blank"]):hover,
 a.gov-carousel__featured-card-btn:not([target="_blank"]):hover {
     background-color: var(--surface-hover-strong);
     color: var(--heading-text);
@@ -979,6 +983,7 @@ a.content-block__btn[target="_blank"] > [class*="glyph"],
 a.contact-info__btn[target="_blank"] > [class$="-glyph"],
 a.contact-info__btn[target="_blank"] > [class*="glyph"],
 a.search-result-btn[target="_blank"] > svg,
+a.feature-card__btn[target="_blank"] > svg,
 a.arrow-link--button[target="_blank"] > .arrow-link__icon,
 a.arrow-link--button[target="_blank"] > [class$="-glyph"],
 a.arrow-link--button[target="_blank"] > [class*="glyph"],
@@ -999,6 +1004,7 @@ a.contact-info__btn:hover > [class$="-glyph"],
 a.contact-info__btn:hover > [class*="glyph"],
 a.contact-info__btn:hover > svg,
 a.search-result-btn:hover > svg,
+a.feature-card__btn:hover > svg,
 a.arrow-link--button:hover > .arrow-link__icon,
 a.arrow-link--button:hover > [class$="-glyph"],
 a.arrow-link--button:hover > [class*="glyph"],
